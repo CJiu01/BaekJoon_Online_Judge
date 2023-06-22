@@ -4,7 +4,7 @@ N = int(sys.stdin.readline())
 arr = []
 for _ in range(N):
     arr.append(list(map(int, input().split(' '))))
-    
+
 grade = [0]*N
 for i in range(N):
     for j in range(i+1,N):
@@ -18,4 +18,8 @@ for i in grade:
     print(i+1,end=' ')
 print('')
 
+# 이차원 배열 한 줄로 받기
+# arr = [list(map(int, sys.stdin.readline().strip().split(' '))) for _ in range(N)]
+
+# sorted 함수로 순위 매기기
 # rank = [sorted(grade, reverse=True).index(i) for i in grade]
