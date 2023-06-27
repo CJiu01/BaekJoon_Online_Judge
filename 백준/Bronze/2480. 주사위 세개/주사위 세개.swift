@@ -23,3 +23,6 @@ if sameNumberCount == 0 {
 } else {
     print(1000+sameNumber*100)
 }
+
+// 입력받기 수정 -> (정렬까지 한 번에)
+// var array = readLine()!.split(separator: " ").map { Int($0)! }.sorted()
