@@ -35,3 +35,21 @@ while true {
     
 }
 
+// Refactor
+
+while true{
+    let ab = readLine()!.split(separator: " ").map { Int($0)! }
+    if ab == [0, 0] {
+        break
+    }
+    let a=ab[0]
+    let b=ab[1]
+    if b%a == 0 {
+        print("factor")
+    } else if a%b == 0 {
+        print("multiple")
+    } else {
+        print("neither")
+    }
+    
+}
