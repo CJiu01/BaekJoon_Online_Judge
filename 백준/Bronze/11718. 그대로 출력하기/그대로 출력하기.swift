@@ -5,3 +5,8 @@ while true {
         break
     }
 }
+
+// Refactor
+while let input = readLine() {
+    print(input)
+}
