@@ -1,32 +1,13 @@
 import Foundation
 
-class Beakjoon5543 {
-    
-    var hamburger = Array<Int>()
-    var drink = Array<Int>()
-    
-    func getData() {
-        for i in 1 ... 5 {
-            let input = readLine()!
-            
-            if i < 4 {
-                hamburger.append(Int(input)!)
-            }
-            else {
-                drink.append(Int(input)!)
-            }
-        }
-        solution()
-    }
-    
-    func solution() {
+var hamburger = Array<Int>()
+var drink = Array<Int>()
 
-        hamburger.sort()
-        drink.sort()
-        let res = hamburger[0] + drink[0] - 50
-        print(res)
-    }
+for _ in 0..<3 {
+    hamburger.append(Int(readLine()!)!)
+}
+for _ in 0..<2 {
+    drink.append(Int(readLine()!)!)
 }
 
-let beakjoon = Beakjoon5543()
-beakjoon.getData()
+print(hamburger.min()! + drink.min()! - 50)
