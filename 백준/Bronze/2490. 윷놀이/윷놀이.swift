@@ -12,3 +12,9 @@ for _ in 0..<3 {
     }
     print(score[cnt]!)
 }
+
+// 고차함수 reduce를 통한 refactor
+for _ in 0..<3 {
+    let input = readLine()!.split(separator: " ").map { Int($0)! }.reduce(0, +)
+    print(input>3 ? "E" : input>2 ? "A" : input>1 ? "B" : input>0 ? "C" : "D")
+}
