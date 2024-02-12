@@ -2,38 +2,30 @@ from collections import deque
 import sys
 input = sys.stdin.readline
 
-dx = [-1,1,0,0]
-dy = [0,0,-1,1]
+di = [[1,0],[-1,0],[0,1],[0,-1]]
 
 def bfs():
-    
-    
     while queue:
         x,y = queue.popleft()
         
         for i in range(4):
-            nx = x+dx[i]
-            ny = y+dy[i]
+            col, row = x+di[i][0], y+di[i][1]
             
-            if nx>=0 and ny>=0 and nx<n and ny<m:
-                if graph[nx][ny] == -1:
-                    continue
-                elif graph[nx][ny] ==0 or graph[nx][ny] > graph[x][y] + 1:
-                    graph[nx][ny] = graph[x][y] + 1
-                    queue.append((nx,ny))
-    return
+            if 0<=col<n and 0<=row<m:
+                if graph[col][row] == 0:
+                    graph[col][row] = graph[x][y] + 1
+                    queue.append([col,row])
         
-
 m, n = map(int, input().split())
-graph = [[]*m for _ in range(n)]
+graph = []
 for i in range(n):
-    graph[i] = list(map(int, input().split()))
+    graph.append(list(map(int, input().split())))
 
 queue = deque(())
 for i in range(n):
     for j in range(m):
         if graph[i][j] == 1:
-            queue.append((i,j))
+            queue.append([i,j])
 
 bfs()      
 
