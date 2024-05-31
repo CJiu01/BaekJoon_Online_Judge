@@ -10,4 +10,7 @@ def solution(s):
                 return False
             stack.pop()
     
-    return not stack
+    if len(stack) > 0:
+        return False
+    else:
+        return True
