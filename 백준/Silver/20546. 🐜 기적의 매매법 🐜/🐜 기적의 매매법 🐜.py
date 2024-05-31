@@ -50,3 +50,37 @@ elif jun_asset < sung_asset:
     print("TIMING")
 else:
     print("SAMESAME")
+
+
+
+# v2
+M = int(input())
+data = [[M,0],[M,0]]
+D = list(map(int, input().split()))
+
+for i in range(14):
+    t1 = data[0][0]//D[i]
+    data[0][0] -= (t1 * D[i]) 
+    data[0][1] += t1
+    
+    if i<3:
+        continue
+    elif D[i-3] < D[i-2] < D[i-1] < D[i]:
+        # 팔자
+        data[1][0] += data[1][1] * D[i]
+        data[1][1] = 0
+    elif D[i-3] > D[i-2] > D[i-1] > D[i]:
+        # 사자
+        t2 = data[1][0] // D[i]
+        data[1][0] -= D[i]*t2
+        data[1][1] += t2
+
+BNP = data[0][0] + data[0][1]*D[-1]
+TIMING = data[1][0] + data[1][1]*D[-1]
+
+if BNP > TIMING:
+    print("BNP")
+elif BNP < TIMING:
+    print("TIMING")
+else:
+    print("SAMESAME")
