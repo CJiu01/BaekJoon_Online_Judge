@@ -1,10 +1,7 @@
-def solution(sizes):
-    row = 0
-    col = 0
-    for a, b in sizes:
-        if a < b :
-            a,b = b,a
-        row = max(row, a)
-        col = max(col, b)
-        
-    return row * col
+def solution(sizes):   
+    for i in sizes:
+        i.sort()
+    row = max(sizes, key= lambda x: x[0])[0]
+    col = max(sizes, key= lambda x: x[1])[1]
+
+    return row*col
