@@ -1,8 +1,9 @@
 def solution(numbers):
-    answer = ''
-    numbers.sort(reverse=True)
-    
-    for i in numbers:
-        answer += str(i)
+    numbers = list(map(str, numbers))
+    numbers.sort(key = lambda x: x*5, reverse= True)
 
-    return answer
+    if numbers[0] == '0':
+        return '0'
+    else:
+        return ''.join(numbers)
+    
