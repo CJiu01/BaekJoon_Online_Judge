@@ -2,27 +2,17 @@ import sys
 input = sys.stdin.readline
 
 n = int(input())
-entrance = {}
+cars = {}
 for i in range(n):
     num = input().strip()
-    entrance[num] = i+1
-    
-exit = {}
-for i in range(n):
-    num = input().strip()
-    ord = entrance[num]
-    exit[num] = ord
+    cars[num] = i+1
 
-exit = list(exit.values())
 cnt = 0
-f = [False]*n
-
-for i in range(1,n):
-    j = i-1
-    while j>=0:
-        if exit[j] > exit[i] and f[j] == False:
-            f[j] = True
-            cnt += 1
-        j -= 1
-
+stack = []
+for i in range(n):
+    out_num = input().strip()
+    while stack and stack[-1] > cars[out_num]:
+        stack.pop()
+        cnt += 1
+    stack.append(cars[out_num])
 print(cnt)
