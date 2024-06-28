@@ -1,4 +1,5 @@
-for i in 0..<Int(readLine()!)! {
-    let input = readLine()!
-    print(input[input.startIndex], input[input.index(before: input.endIndex)], separator: "")
+let t = Int(readLine()!)!
+for _ in 0..<t {
+    let s = readLine()!
+    print(s[String.Index(encodedOffset:0)],s[String.Index(encodedOffset: s.count-1)],separator: "")
 }
