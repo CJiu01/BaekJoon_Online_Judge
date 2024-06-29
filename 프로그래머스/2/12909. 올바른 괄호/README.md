@@ -1,10 +1,10 @@
 # [level 2] 올바른 괄호 - 12909 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12909) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12909?language=swift) 
 
 ### 성능 요약
 
-메모리: 11.1 MB, 시간: 7.45 ms
+메모리: 16.6 MB, 시간: 13.86 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 05월 31일 17:00:27
+2024년 06월 30일 01:58:33
 
 ### 문제 설명
 
