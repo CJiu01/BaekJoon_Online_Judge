@@ -6,25 +6,22 @@ public class Main {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
+        StringBuffer sb = new StringBuffer();
         while(true) {
-            String input = br.readLine();
-            if(input.equals("0")) { break; }
-            
-            int[] arr = Arrays.stream(input.split(""))
-                                .mapToInt(Integer::parseInt)
-                                .toArray();
-            int n = arr.length;
-            String res = "yes";
+            String s = br.readLine();
 
-            for(int i=0; i<n/2; i++) {
-                if(arr[i]!=arr[n-i-1]) {
-                    res = "no";
-                    break;
-                }
+            if(s.equals("0")) { break; }
+
+            if(s.equals(new StringBuffer(s).reverse().toString())) {
+                sb.append("yes");
+            } else {
+                sb.append("no");
             }
 
-            System.out.println(res);
+            sb.append("\n");
+
         }
+        System.out.println(sb);
         
     }
 }
