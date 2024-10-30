@@ -1,15 +1,12 @@
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
-import java.util.Arrays;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringBuilder sb = new StringBuilder();
+        
+        
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         String s = "";
@@ -25,15 +22,13 @@ public class Main {
             int[] tmp = {a,b,c};
             Arrays.sort(tmp);
             if(tmp[2]*tmp[2] == tmp[0]*tmp[0] + tmp[1]*tmp[1]) {
-                bw.write("right");
-                bw.newLine();
+                sb.append("right").append("\n");
             } else {
-                bw.write("wrong");
-                bw.newLine();
+                sb.append("wrong").append("\n");
             }
         }
 
-        bw.close();
+        System.out.println(sb);
         br.close();
     }
 }
