@@ -21,10 +21,7 @@ public class Main {
         int T = 0;
         
         for(int i=0; i<arr.length; i++) {
-            T += arr[i]/t;
-            if(arr[i]%t != 0) {
-                T += 1;
-            }
+            T += arr[i]/t + (arr[i]%t == 0 ? 0 : 1);
         }
         System.out.println(T);
         System.out.println(n/p+" "+ n%p);
