@@ -1,11 +1,10 @@
-def GCD(a,b):
-    while(b!=0):
-        k=a%b
-        a=b
-        b=k
-    return a
+def gcd(a,b):
+    if b!=0:
+        return gcd(b,a%b)
+    else:
+        return a
 
-a,b = map(int,input().split())
-gcd=GCD(a,b)
-print(gcd)
-print((a*b)//gcd)
+a,b = map(int, input().split())
+res = gcd(a,b)
+print(res)
+print(a*b//res)
