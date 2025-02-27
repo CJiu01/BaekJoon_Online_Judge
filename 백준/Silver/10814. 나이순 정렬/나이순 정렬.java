@@ -5,25 +5,27 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+
         int n = Integer.parseInt(br.readLine());
 
-        String[][] member = new String[n][3];
+        List<String>[] member = new List[201];
+        for(int i=0; i<201; i++) member[i] = new ArrayList<>();
+
         for(int i=0;i<n;i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
-            member[i][0] = st.nextToken();
-            member[i][1] = st.nextToken();
-            member[i][2] = String.valueOf(i);
+            int age = Integer.parseInt(st.nextToken());
+            String name = st.nextToken();
+            member[age].add(name);
         }
 
-        Arrays.sort(member, (a,b) -> {
-            if(Integer.parseInt(a[0]) == Integer.parseInt(b[0])) {
-                return Integer.compare(Integer.parseInt(a[2]), Integer.parseInt(b[2]));
+        for(int i=0; i<member.length; i++) {
+            if(member[i].size() > 0) {
+                for(String name: member[i]) {
+                    sb.append(i+" "+name+"\n");
+                }
             }
-            return Integer.compare(Integer.parseInt(a[0]), Integer.parseInt(b[0]));
-        });
-
-        for(String[] row: member) {
-            System.out.println(row[0]+" " +row[1]);
         }
+        System.out.println(sb);
     }
 }
