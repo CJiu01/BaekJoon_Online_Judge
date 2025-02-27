@@ -7,33 +7,27 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
 
-        int[][] arr = new int[n][4];
+        int[][] size = new int[n][2];
+        int[] answer = new int[n];
 
         for(int i=0; i<n; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
-            arr[i][0] = Integer.parseInt(st.nextToken());
-            arr[i][1] = Integer.parseInt(st.nextToken());
-            arr[i][2] = i+1;
-            arr[i][3] = 0;
+            size[i][0] = Integer.parseInt(st.nextToken());
+            size[i][1] = Integer.parseInt(st.nextToken());
         }
-        Arrays.sort(arr, (a,b) -> Integer.compare(b[0],a[0]));
 
-        int i=0;
-        while(i<n) {
-            int k = 0;
-            int j = 0;
-            while(arr[j][0] > arr[i][0]) {
-                if(arr[j][1] > arr[i][1]) {
-                    k += 1;
-                }
-                j+=1;
-            }     
-            arr[i][3] = k+1;
-            i += 1;
+        for(int i=0; i<n; i++) {
+            int rank = 1;
+            for(int j=0; j<n; j++) {
+                if(i==j) 
+                    continue;
+                if(size[i][0]<size[j][0] && size[i][1]<size[j][1]) 
+                    rank++;
+            }
+            answer[i] = rank;
         }
-        Arrays.sort(arr, (a,b) -> Integer.compare(a[2], b[2]));
-        for(int[] row: arr) {
-            System.out.print(row[3]+ " ");
+        for(int i:answer) {
+            System.out.print(i+" ");
         }
     }
 }
