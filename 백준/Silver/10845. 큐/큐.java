@@ -1,17 +1,14 @@
 import java.io.*;
 import java.util.*;
 
-class CustomQueue {
-    LinkedList<Integer> queue = new LinkedList<>();
+class CustomQueue<T> {
+    LinkedList<T> queue = new LinkedList<>();
 
-    void push(int num) {
+    void push(T num) {
         queue.offer(num);
     }
 
-    int pop() {
-        if(queue.isEmpty()) {
-            return -1;
-        }
+    T pop() {
         return queue.poll();
     }
 
@@ -23,17 +20,11 @@ class CustomQueue {
         return queue.isEmpty() ? 1 : 0;
     }
 
-    int front() {
-        if(queue.isEmpty()) {
-            return -1;
-        }
+    T front() {
         return queue.peek();
     }
 
-    int back() {
-        if(queue.isEmpty()) {
-            return -1;
-        }
+    T back() {
         return queue.peekLast();
     }
 }
@@ -47,36 +38,40 @@ public class Main {
 
         StringTokenizer st;
         StringBuilder sb = new StringBuilder();
-        CustomQueue queue = new CustomQueue();
+        CustomQueue<Integer> queue = new CustomQueue();
 
         for(int i=0;i<n;i++) {
             st = new StringTokenizer(br.readLine());
 
             String command = st.nextToken();
+            Integer res = null;
             switch (command) {
                 case "push":
                     int num = Integer.parseInt(st.nextToken());
                     queue.push(num);        
                     break;
                 case "pop":
-                    sb.append(queue.pop()+"\n");
+                    res = queue.pop();
                     break;
                 case "size":
-                    sb.append(queue.size()+"\n");
+                    res = queue.size();
                     break;
                 case "empty":
-                    sb.append(queue.empty()+"\n");
+                    res = queue.empty();
                     break;
                 case "front":
-                    sb.append(queue.front()+"\n");
+                    res = queue.front();
                     break;
                 case "back":
-                    sb.append(queue.back()+"\n");
+                    res = queue.back();
                     break;
-                default:
-                    break;
+            }
+            if(!command.equals("push")) {
+                sb.append((res==null) ? -1 : res).append("\n");
             }
         }
         System.out.println(sb);
+        br.close();
+
     }
 }
