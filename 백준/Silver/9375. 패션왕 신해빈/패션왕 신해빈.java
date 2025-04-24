@@ -2,44 +2,37 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static int combination(int n, int r) {
-        if (n == r || r == 0) return 1;
-        return combination(n - 1, r - 1) + combination(n - 1, r);
-    }
-
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(br.readLine());
+        StringBuilder sb = new StringBuilder();
 
-        StringTokenizer st;
-        for(int i=0; i<t; i++) {
-            int n = Integer.parseInt(br.readLine());
-            HashMap<String, List<String>> hash = new HashMap<>();
+        int T = Integer.parseInt(br.readLine());
 
-            for(int j=0; j<n; j++) {
-                st = new StringTokenizer(br.readLine());
-                String name = st.nextToken();
+        while(T-- > 0) {
+
+            HashMap<String, Integer> hm = new HashMap<>();
+
+            int N = Integer.parseInt(br.readLine());
+
+            while(N-- > 0) {
+                StringTokenizer st = new StringTokenizer(br.readLine());
+
+                st.nextToken();
                 String type = st.nextToken();
-
-                hash.computeIfAbsent(type, k->new ArrayList<>()).add(name);
+                if(hm.containsKey(type)) {
+                    hm.put(type, hm.get(type)+1);
+                } else {
+                    hm.put(type, 1);
+                }
             }
 
-            int[] tmp = new int[hash.size()];
-            int tmpCnt = 0;
-
-            for (Map.Entry<String, List<String>> entry : hash.entrySet()) {
-                int cnt = entry.getValue().size();
-                int res = 0;
-
-                for (int k = 0; k <= 1; k++) {
-                    res += combination(cnt, k);
-                }
-
-                tmp[tmpCnt++] = res;
-}
-            int product = Arrays.stream(tmp).reduce(1, (a,b) -> a*b);
-            System.out.println(product-1);
-        }
+            int result = 1;
+            for(int val:hm.values()) {
+                result *= (val+1);
+            }
+            sb.append(result-1).append("\n");
+        } 
+        System.out.println(sb);
     }
 }
