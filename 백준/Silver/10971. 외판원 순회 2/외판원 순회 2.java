@@ -5,22 +5,21 @@ public class Main {
     static int N;
     static int[][] graph;
     static int res = Integer.MAX_VALUE;
-    static int start;
 
-    public static void dfs(int fore, int pre, int count, boolean[] visited, int price) {
+    public static void dfs(int now, int count, boolean[] visited, int price) {
 
         if(count == N) {
-            if(graph[pre][start] != 0) {
-                res = Math.min(res, price+graph[pre][start]);
+            if(graph[now][0] != 0) {
+                res = Math.min(res, price+graph[now][0]);
             }
             return;
         }
 
         for(int i=0; i<N; i++) {
             if(visited[i] == false) {
-                if(graph[pre][i]!=0){
+                if(graph[now][i]!=0){
                     visited[i] = true;
-                    dfs(pre, i, count+1, visited, price+graph[pre][i]);
+                    dfs(i, count+1, visited, price+graph[now][i]);
                     visited[i] = false;
                 }
             }
@@ -41,12 +40,9 @@ public class Main {
             }
         }
 
-        for(int i=0; i<N; i++) {
-            start = i;
-            boolean[] visited = new boolean[N];
-            visited[i] = true;
-            dfs(i, i, 1, visited, 0);
-        }
+        boolean[] visited = new boolean[N];
+        visited[0] = true;
+        dfs(0, 1, visited, 0);
 
         System.out.println(res);
     }
