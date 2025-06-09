@@ -9,36 +9,35 @@ public class Main {
     static int minValue = Integer.MAX_VALUE;
     static int k=1;
     
-    public static void dfs(int count, boolean[] visited, int cal) {
+    public static void dfs(int count, int cal) {
 
-        if(count == N-1) {
+        if(count == N) {
             maxValue = Math.max(maxValue, cal);
             minValue = Math.min(minValue, cal);
             return;
         }
 
-        for(int i=0; i<N-1; i++) {
-            if(visited[i] == false) {
-                visited[i] = true;
+        for(int i=0; i<4; i++) {
+            if(oper[i] > 0) {
+                oper[i]--;
 
-                switch (oper[i]) {
-                    case 0:
-                        dfs(count+1, visited, cal+graph[k++]);
-                        break;
-                    case 1:
-                        dfs(count+1, visited, cal-graph[k++]);
-                        break;
-                    case 2:
-                        dfs(count+1, visited, cal*graph[k++]);
-                        break;
-                    case 3:
-                        dfs(count+1, visited, cal/graph[k++]);
-                        break;
-                    default:
+                int next = 0;
+                switch (i) {
+                    case 0: next = cal+graph[count]; break;
+                    case 1: next = cal-graph[count]; break;
+                    case 2: next = cal*graph[count]; break;
+                    case 3: 
+                        if(cal<0) {
+                            next = -(-cal/graph[count]);
+                        } else {
+                            next = cal/graph[count]; 
+                        }
                         break;
                 }
-                k--;
-                visited[i] = false;
+                dfs(count+1, next);
+
+                // 연산자 개수 복원
+                oper[i]++;
             }
         }
         return;
@@ -48,23 +47,21 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
         graph = new int[N];
-        oper = new int[N-1];
+        oper = new int[4];
 
+        // 숫자 입력
         StringTokenizer st = new StringTokenizer(br.readLine());
         for(int i=0; i<N; i++) {
             graph[i] = Integer.parseInt(st.nextToken());
         }
 
+        // 연산자 개수 입력
         st = new StringTokenizer(br.readLine());
-        int m=0;
         for(int i=0; i<4; i++) {
-            int tmp = Integer.parseInt(st.nextToken());
-            for(int l=0; l<tmp; l++) {
-                oper[m++] = i;
-            }
+            oper[i] = Integer.parseInt(st.nextToken());
         }    
-        boolean[] visited = new boolean[N-1];
-        dfs(0, visited, graph[0]);
+
+        dfs(1, graph[0]);
         System.out.println(maxValue);
         System.out.println(minValue);
 
