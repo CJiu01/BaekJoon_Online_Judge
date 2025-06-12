@@ -2,38 +2,34 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static int N;
-    static HashMap<String, Integer> map = new HashMap<>();
-
 
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringBuilder sb = new StringBuilder();
+        StringTokenizer st;
 
-        for(int i=0; i<N; i++) {
-            String input = br.readLine();
-            input = input.split("\\.")[1];
-            map.put(input, map.getOrDefault(input, 0)+1);
+        int N = Integer.parseInt(br.readLine());
+        HashMap<String,Integer> map = new HashMap<>();
+
+        while(N-->0) {
+            st = new StringTokenizer(br.readLine(), ".");
+            st.nextToken();
+            String s = st.nextToken();
+            map.put(s,map.getOrDefault(s, 0)+1);
         }
 
-        int num = map.size();
-        String[][] dic = new String[num][2];
-        int i=0;
-        for(String s: map.keySet()) {
-            dic[i][0] = s;
-            dic[i][1] = String.valueOf(map.get(s));
-            i++;
-        }
+        ArrayList<String> list = new ArrayList<>(map.keySet());
+        Collections.sort(list);
 
-        Arrays.sort(dic, new Comparator<String[]>() {
-            public int compare(String[] a, String[] b) {
-                return a[0].compareTo(b[0]); 
-            }
-        });
-
-        for(String[] s: dic) {
-            System.out.println(s[0]+ " "+s[1]);
+        for(String s: list) {
+            sb.append(s).append(" ").append(map.get(s)).append('\n');
         }
+        bw.write(sb.toString());
+
+        br.close();
+        bw.flush();
+        bw.close();
     }
 }
