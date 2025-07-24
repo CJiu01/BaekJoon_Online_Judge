@@ -6,27 +6,26 @@ public class Main {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+        StringBuilder sb = new StringBuilder();
+
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
-        HashMap<String, Integer> map = new HashMap<>();
-        String[] arr = new String[n];
-        for(int i=0;i<n;i++) {
+        Map<String, Integer> mapToInt = new HashMap<>();
+        Map<Integer, String> mapToString = new HashMap<>();
+
+        for(int i=1; i<=n; i++) {
             String s = br.readLine();
-            map.put(s, i+1);
-            arr[i] = s;
+            mapToInt.put(s, i);
+            mapToString.put(i, s);
+        }
+        while(m-- > 0) {
+            String s = br.readLine();
+            if('0'<=s.charAt(0) && s.charAt(0)<='9') sb.append(mapToString.get(Integer.parseInt(s))).append("\n");
+            else sb.append(mapToInt.get(s)).append("\n");
         }
 
-        StringBuilder sb = new StringBuilder();
-        for(int i=0;i<m;i++) {
-            String s = br.readLine();
-            if(s.charAt(0)-'0'>9) {
-                sb.append(map.get(s)).append("\n");
-            } else {
-                sb.append(arr[Integer.parseInt(s)-1]).append("\n");
-            }
-            
-        }
         System.out.println(sb);
+
     }
 }
