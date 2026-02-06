@@ -5,9 +5,8 @@ input = sys.stdin.readline
 str = input().strip()
 res = ''
 for i in str:
-    if i<chr(90):
-        res += chr(ord(i)+32)
+    if ord(i)<=90:
+        res += i.lower()
     else:
-        res += chr(ord(i)-32)
-        
+        res += i.upper()
 print(res)
