@@ -1,16 +1,6 @@
-from collections import deque
-import copy
+from collections import deque            
 
-def floodedplace(N, flooded, height):
-    for i in range(N):
-        for j in range(N):
-            if (flooded[i][j]<=height):
-                flooded[i][j] = 0
-            else:
-                flooded[i][j] = 1
-                
-
-def bfs(x, y, flooded, visited):
+def bfs(x, y, graph, visited,h):
     dx = [0,0,-1,1]
     dy = [-1, 1, 0, 0]
     
@@ -25,7 +15,7 @@ def bfs(x, y, flooded, visited):
             ny = y+dy[i]
             
             if (0<=nx<N and 0<=ny<N):
-                if (flooded[nx][ny]==1 and (not visited[nx][ny])):
+                if (graph[nx][ny]>h and (not visited[nx][ny])):
                     queue.append((nx,ny))
                     visited[nx][ny] = True
 
@@ -39,16 +29,13 @@ for i in range(N):
     height.update(l)
 
 res = 1
-for i in height:
-    flooded = copy.deepcopy(graph)
-    floodedplace(N, flooded, i)
-    
+for h in height:
     visited = [[False]*N for _ in range(N)]
     cnt = 0
     for i in range(N):
         for j in range(N):
-            if (flooded[i][j]==1 and (not visited[i][j])):
-                bfs(i,j, flooded, visited)
+            if (graph[i][j]>h and (not visited[i][j])):
+                bfs(i,j, graph, visited, h)
                 cnt += 1
     res = max(res, cnt)
 
