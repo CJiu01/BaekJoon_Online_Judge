@@ -1,13 +1,10 @@
-import sys
-input = sys.stdin.readline
 from itertools import combinations
 
-l, c = map(int, input().split())
-al = list(input().split())
-list.sort(al)
-vowel = {'a', 'e', 'i', 'o', 'u'}
+L, C = map(int, input().split())
+letters = sorted(input().split())
 
-for password in combinations(al, l):
-    cnt = len(set(password) & vowel)
-    if (0<cnt and cnt<=l-2):
-        print(''.join(password))
+vowels = 'aeiou'
+for comb in combinations(letters, L):
+    vowel_count = sum(1 for c in comb if c in vowels)
+    if (vowel_count>0 and vowel_count<=L-2):
+        print(''.join(comb))
