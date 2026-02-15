@@ -1,44 +1,23 @@
-def back(arr, res, idx, p):
-    if (len(res)==2):
-        p.append(res)
-        return 
-    
-    for i in range(idx, (N//2)):
-        back(arr, res+[arr[i]], i+1, p)
+from itertools import combinations
 
-def pair(li):
-    p = []
-    back(li, [], 0, p)
-    return p
-    
-def calPower(li):
-    res = 0
-    for pair in li:
-        x, y = pair
-        res += graph[x][y] + graph[y][x]
-    return res
+n = int(input())
+graph = [list(map(int, input().split())) for _ in range(n)]
+members = list(range(n))
+ans = 1e9
 
-def power(team):
-    other = [i for i in range(N) if i not in team]
-    a = pair(team) # team으로 만들 수 있는 쌍
-    b = pair(other) # other로 만들 수 있는 쌍
-    aPower = calPower(a)
-    bPower = calPower(b)
-    diff = abs(aPower-bPower)
-    return diff
+def sum_score(arr):
+    total = 0
+    for i,j in combinations(arr, 2):
+        total += graph[i][j] + graph[j][i]
+    return total
     
-def dfs(team, idx):
-    global answer
-    if(len(team)==(N//2)):
-        answer = min(answer, power(team))
-        
-    for i in range(idx, N):
-        dfs(team+[i], i+1)
-        
-N = int(input())    
-graph = [list(map(int, input().split())) for _ in range(N)]
- 
-team = []
-answer = 100
-dfs(team, 0)
-print(answer)
+
+
+for team_a in combinations(members, n//2):
+    team_b = list(set(members) - set(team_a))
+    
+    ans = min(ans, abs(sum_score(team_a)-sum_score(team_b)))
+    if ans==0:
+        break
+    
+print(ans)
