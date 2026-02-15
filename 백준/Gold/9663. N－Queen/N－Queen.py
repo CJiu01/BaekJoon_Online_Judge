@@ -1,27 +1,25 @@
-import sys
-input = sys.stdin.readline
+def back(row, isused1, isused2, isused3):
+    global cnt 
+    if(row == N):
+        cnt +=1
+        return
 
-count = 0
-board = [0] * 15
+    for i in range(N):
+        if (isused1[i] or isused2[row+i] or isused3[row-i+N-1]):
+            continue
+        isused1[i] = True
+        isused2[row+i] = True
+        isused3[row-i+N-1] = True
+        back(row+1, isused1, isused2, isused3)
+        isused1[i] = False
+        isused2[row+i] = False
+        isused3[row-i+N-1] = False
+            
+N = int(input())
+cnt = 0
+isused1 = [False]*N
+isused2 = [False]*((N-1)*2+1)
+isused3 = [False]*((N-1)*2+1)
 
-def promise(cdx):
-    for i in range(0, cdx):
-        if board[i] == board[cdx] or (cdx-i) == abs(board[i]-board[cdx]):
-            return False
-    return True
-
-def nqueen(cdx):
-    global count
-
-    if cdx == n:
-        count += 1
-        return 
-    
-    for i in range(n):
-        board[cdx] = i
-        if(promise(cdx)):
-            nqueen(cdx+1)
-
-n = int(input())
-nqueen(0)
-print(count)
+back(0, isused1, isused2, isused3)
+print(cnt)
