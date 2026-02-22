@@ -1,19 +1,18 @@
-from collections import Counter
 import sys
 input = sys.stdin.readline
 
 N, M = map(int, input().split())
-arr = []
+dic = dict()
 
 for _ in range(N):
     word = input().rstrip()
+    
     if (len(word)>=M):
-        arr.append(word)
-        
-dic = Counter(arr)
-arr = []
-for key,value in dic.items():
-    arr.append((value, len(key), key))
-arr.sort(key=lambda x: (-x[0],-x[1],x[2]))
-
-print(*(row[2] for row in arr), sep='\n')
+        if word in dic:
+            dic[word] += 1
+        else:
+            dic[word] = 1
+            
+ans = sorted(dic.items(), key=lambda x:(-x[1], -len(x[0]), x[0]))
+for x,y in ans:
+    print(x)
