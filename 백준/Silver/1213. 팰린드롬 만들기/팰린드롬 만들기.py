@@ -1,33 +1,24 @@
-from collections import Counter
+word = input()
+word_dic = {}
 
-def palindrome():
-    odd = 0
-    ans = ''
+for w in word:
+    word_dic[w] = word_dic.get(w,0)+1 
+    
+odd_count = 0
+sorted_keys = sorted(word_dic.keys())
 
-    for value in name.values():
-        if(value%2==1):
-            odd+=1
-            
-    if (odd>1):
-        ans = "I'm Sorry Hansoo"
-        return ans
+prefix = ''
+mid = ''
 
-    al = [chr(i+65) for i in range(26)]      
-    for i in al:
-        if(i in name):
-            ans += i*(name[i]//2)
-            name[i] %= 2
-            if(name[i]==0):
-                del name[i]
-            else:
-                odd = i
-                
-    suffix = ans[::-1]
-    if name:
-        ans += odd
-    ans += suffix
-    return ans
-            
+for k in sorted_keys:
+    if (word_dic[k]%2==1):
+        mid += k
+        odd_count += 1
+    prefix += k*(word_dic[k]//2)
+    
+suffix = prefix[::-1]
 
-name = Counter(input())
-print(palindrome())
+if odd_count>1:
+    print("I'm Sorry Hansoo")
+else:
+    print(prefix+mid+suffix)
