@@ -1,11 +1,15 @@
 s = input()
-i=1
-while s:
-    i_str = str(i)
+idx = 0
+n = 0
 
-    for t in i_str:
-        if(s and t==s[0]):
-            s=s[1:]
-    i+=1
+while (idx < len(s)):
+    n+=1
     
-print(i-1)
+    for digit in str(n):
+        if (digit == s[idx]):
+            idx+=1
+            
+            if (idx == len(s)):
+                break
+            
+print(n)
