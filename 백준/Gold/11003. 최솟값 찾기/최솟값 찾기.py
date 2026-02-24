@@ -9,9 +9,9 @@ h = deque([0])
 D[0] = window[0]
 
 for i in range(1,N):
-    while (h and h[0] < (i-L+1)):
+    if (h and h[0] < (i-L+1)):
         h.popleft()
-    while h and window[h[-1]]>window[i]:
+    while (h and window[h[-1]]>window[i]):
         h.pop()
     
     h.append(i)
