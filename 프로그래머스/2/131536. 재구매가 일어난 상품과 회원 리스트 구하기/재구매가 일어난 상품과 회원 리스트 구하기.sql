@@ -5,19 +5,8 @@
 # having count(*)>1
 # order by USER_ID, PRODUCT_ID DESC
 
-select user_id,product_id
+select USER_ID, PRODUCT_ID
 from ONLINE_SALE
-
-group by user_id,product_id
-having count(*) >1
-order by user_id,product_id desc
-
-
-
-
-
-
-
-
-
-
+group by USER_ID, PRODUCT_ID
+having count(*)>1
+order by USER_ID, PRODUCT_ID DESC
