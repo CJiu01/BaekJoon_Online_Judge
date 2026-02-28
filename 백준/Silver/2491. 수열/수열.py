@@ -1,25 +1,19 @@
 n = int(input())
-arr = list(map(int, input().split()))
-len_arr = len(arr)
-res = 1
-i, inc = 1,1
-# 증가
-while i<len_arr:
-    if (arr[i-1]<=arr[i]):
-        inc += 1
-        res = max(res, inc)
-    else:
-        inc = 1
-    i+=1
+data = list(map(int, input().split()))
 
-i,dec = 1,1
-# 감소
-while i<len_arr:
-    if (arr[i-1]>=arr[i]):
-        dec += 1
-        res = max(res, dec)
+b_ans = 1 #증가
+s_ans = 1 #감소
+
+max_ans = 1
+for i in range(1,n):
+    if data[i-1]==data[i]:
+        b_ans+=1
+        s_ans+=1
+    elif data[i-1]>data[i]:
+        s_ans+=1
+        b_ans=1
     else:
-        dec = 1
-    i+=1
-        
-print(res)
+        b_ans+=1
+        s_ans=1
+    max_ans = max(max_ans,b_ans,s_ans)
+print(max_ans)
