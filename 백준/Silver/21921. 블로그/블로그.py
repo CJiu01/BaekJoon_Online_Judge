@@ -4,21 +4,18 @@ input = sys.stdin.readline
 N, X = map(int, input().split())
 arr = list(map(int, input().split()))
 
-sum_value = 0
-prefix_sum = [0]
+current = sum(arr[:X])
+res = current
+cnt = 1
 
-for i in range(N):
-    sum_value += arr[i]
-    prefix_sum.append(sum_value)
+for i in range(1,N-X+1):
+    current += arr[i+X-1]
+    current -= arr[i-1]
     
-res = 0
-cnt = 0
-for i in range(X,N+1):
-    tmp = prefix_sum[i]-prefix_sum[i-X]
-    if tmp>res:
-        res = tmp
+    if current>res:
+        res = current
         cnt = 1
-    elif tmp==res:
+    elif current==res:
         cnt+=1
 
 if res!=0:         
@@ -26,4 +23,3 @@ if res!=0:
     print(cnt)
 else:
     print("SAD")
-    
