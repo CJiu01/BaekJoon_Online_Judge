@@ -1,62 +1,36 @@
 import sys
 input = sys.stdin.readline
 
+def check(line):
+    used = [False]*N
+    for i in range(1,N):
+        if abs(line[i] - line[i-1])>1:
+            return False
+        
+        if line[i-1] > line[i]:
+            for j in range(L):
+                if i+j >= N or line[i]!=line[i+j] or used[i+j]:
+                    return False
+                if line[i] == line[i+j]:
+                    used[i+j] = True
+            
+        elif line[i-1] < line[i]:
+            for j in range(L):
+                if i-j-1 < 0 or line[i-1]!=line[i-j-1] or used[i-j-1]:
+                    return False
+                if line[i-1] == line[i-j-1]:
+                    used[i-j-1] = True
+                    
+    return True
 
 N, L = map(int, input().split())
-map = [list(map(int, input().split())) for _ in range(N)]
-roads = map
+graph = [list(map(int, input().split())) for _ in range(N)]
+ans = 0
+
 for i in range(N):
-    li = []
-    for j in range(N):
-        li.append(map[j][i])
-    roads.append(li)
-
-res = 0
-
-for road in roads:
+    if check([graph[i][j] for j in range(N)]):
+        ans += 1
+    if check([graph[j][i] for j in range(N)]):
+        ans += 1
     
-    pre_height = road[0]
-    i = 1
-    bridge =  [False]*N # 다리 놓았는지 확인
-    flag = True
-    
-    while i<N:
-        if (abs(pre_height-road[i])>1):
-            break
-        
-        if (pre_height == road[i]):
-            i += 1
-        else:
-            if (pre_height-road[i]==1): # 앞이 높은 경우
-                for k in range(i,i+L):
-                    if (k>=N or road[k] != road[i] or bridge[k]):
-                        flag = False
-                        break
-                if not flag:
-                    break
-                
-                # 다리 배열 갱싱
-                for k in range(i,i+L):
-                    bridge[k] = True
-                    
-                pre_height = road[i]    
-                i = i+L
-                     
-            else: # 뒤가 높은 경우
-                for k in range(i-L,i):
-                    if (k<0 or road[k] != road[i-1] or bridge[k]):
-                        flag = False
-                        break
-                if not flag:
-                    break
-                
-                # 다리 배열 갱싱
-                for k in range(i-L,i):
-                    bridge[k] = True
-                    
-                pre_height = road[i]
-                i = i+1     
-    if (i==N):
-        res += 1
-        
-print(res)
+print(ans)
