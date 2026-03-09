@@ -8,11 +8,8 @@ def oper(arr):
         counter = Counter(x for x in row if x)
         
         pairs = sorted(counter.items(), key= lambda x: (x[1],x[0]))
-        
-        new_row = []
-        for pair in pairs:
-            new_row.extend(pair)
-        
+
+        new_row = [x for pair in pairs for x in pair]        
         new_row = new_row[:100]
         max_len = max(max_len, len(new_row))
         
