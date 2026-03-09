@@ -1,84 +1,52 @@
 from collections import Counter
 
-
-def oper_R(arr):
-    trans_arr = []
-    for j in range(len(arr)):
-        counter = Counter(i for i in arr[j] if i!=0)
-
-        count_vec = []
-        for a,b in counter.items():
-            count_vec.append([a,b])
-            
-        count_vec.sort(key= lambda x: (x[1],x[0]))
-        trans_arr.append(count_vec)
-    return trans_arr
-
-def oper_C(arr):
-    trans_arr = []
+def oper(arr):
+    new_arr = []
+    max_len = 0
     
-    for i in range(len(arr[0])):
-        tmp = []
-        for j in range(len(arr)):
-            tmp.append(arr[j][i])
-        counter = Counter(k for k in tmp if k!=0)
+    for row in arr:
+        counter = Counter(x for x in row if x)
         
-        count_vec = []
-        for a,b in counter.items():
-            count_vec.append([a,b])
-            
-        count_vec.sort(key= lambda x: (x[1],x[0]))
-        trans_arr.append(count_vec)
-    return trans_arr
+        pairs = sorted(counter.items(), key= lambda x: (x[1],x[0]))
         
+        new_row = []
+        for pair in pairs:
+            new_row.extend(pair)
+        
+        new_row = new_row[:100]
+        max_len = max(max_len, len(new_row))
+        
+        new_arr.append(new_row)
+    
+    for row in new_arr:
+        while len(row)<max_len:
+            row.append(0)
+    
+    return new_arr
+
 
 r, c, k = map(int, input().split())
-r,c = r-1,c-1
+r -= 1
+c -= 1
+
 arr = [list(map(int, input().split())) for _ in range(3)]
 time = 0
-row, col = 3,3
-oper = True
-
 
 while time <= 100:
     
-    row = len(arr)-1
-    col = len(arr[0])-1
-    
-    # # [r][c] == k 확인
-    if r<=row and c<=col:
+    # [r][c] == k 확인
+    if r<len(arr) and c<len(arr[0]):
         if arr[r][c] == k:
-            break
-    time += 1
-   
-    new = []
-    # 행/열 개수 비교
-    if row>=col:
-        new = oper_R(arr)
-    else:
-        new = oper_C(arr)
-
-    flat = []
-    for ro in new:
-        temp = []
-        for a, b in ro:
-            temp.extend([a, b])
-        flat.append(temp)
-
-    max_len = max(len(r) for r in flat)
-
-    for ro in flat:
-        ro.extend([0] * (max_len - len(ro)))
-       
-    if row<col: 
-        tmp = [[0]*len(flat) for _ in range(max_len)]
-        for i in range(len(flat)):
-            for j in range(max_len):
-                tmp[j][i] = flat[i][j]
-        flat = tmp[:]
-    arr = flat[:]
+            print(time)
+            exit()
     
-if time<=100:
-    print(time)
-else:
-    print(-1)
+    if len(arr)>=len(arr[0]):
+        arr = oper(arr)
+    else:
+        arr = list(map(list, zip(*arr)))
+        arr = oper(arr)
+        arr = list(map(list, zip(*arr)))
+   
+    time += 1
+
+print(-1)
