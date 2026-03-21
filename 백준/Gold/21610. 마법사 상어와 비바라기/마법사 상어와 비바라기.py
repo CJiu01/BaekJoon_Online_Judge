@@ -1,11 +1,10 @@
-import copy
+import sys
+input = sys.stdin.readline
 
 def move(clouds,d,s):
     for cloud in clouds:
-        cloud[0] += (dir[d][0]*s)
-        cloud[1] += (dir[d][1]*s)
-        cloud[0]%=N
-        cloud[1]%=N
+        cloud[0] = (cloud[0] + (dir[d][0]*s))%N
+        cloud[1] = (cloud[1] + (dir[d][1]*s))%N
         
 def rain(clouds):
     for cloud in clouds:
@@ -25,18 +24,13 @@ def magic(clouds):
         A[r][c] += cnt
         
 def make_clouds(clouds):
-    k = 0
-    k_len = len(clouds)
+    clouds_set = set(map(tuple, clouds))
     new_clouds = []
     for i in range(N):
         for j in range(N):
-            if k<k_len and clouds[k][0]==i and clouds[k][1]==j:
-                k+=1
-                continue
-            if A[i][j]>=2:
+            if (i,j) not in clouds_set and A[i][j]>=2:
                 A[i][j] -= 2
                 new_clouds.append([i,j])
-
     return new_clouds
 
 N, M = map(int, input().split())
@@ -49,15 +43,8 @@ for _ in range(M):
     d,s = map(int, input().split())
  
     move(clouds, d-1,s)
-    clouds.sort()
-    
     rain(clouds)
     magic(clouds)
     clouds = make_clouds(clouds)
         
-ans = 0
-for i in range(N):
-    for j in range(N):
-        ans += A[i][j]
-        
-print(ans)
+print(sum(A[i][j] for i in range(N) for j in range(N)))
