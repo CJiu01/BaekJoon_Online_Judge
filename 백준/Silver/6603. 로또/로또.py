@@ -1,21 +1,24 @@
 import sys
 
-def back(depth, arr, start):
+def back(depth, start, path):
     if depth==6:
-        print(*arr)
+        print(*path)
         return
     
     for i in range(start, k):
-        back(depth+1, arr+[S[i]], i+1)
+        path.append(S[i])
+        back(depth+1, i+1, path)
+        path.pop()
         
     return
 
 while True:
-    str = sys.stdin.readline().rstrip()
-    if str=='0':
+    line = sys.stdin.readline().split()
+    if line[0]=='0':
         break
     
-    k, *S = map(int, str.split())
-    a = []
-    back(0, a, 0)
+    k = int(line[0])
+    S = list(map(int, line[1:]))
+    
+    back(0, 0, [])
     print()
