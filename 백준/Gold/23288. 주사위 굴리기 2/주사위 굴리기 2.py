@@ -1,16 +1,13 @@
 from collections import deque
 
 def move_dice(dice, move):
-    d0, d1, d2, d3, d4, d5 = dice[0], dice[1], dice[2], dice[3], dice[4], dice[5]
-    
-    if move==0:
-        dice[1], dice[3], dice[4], dice[5] = d4, d5, d3, d1
-    elif move==1:
-        dice[0], dice[1], dice[2], dice[3] = d3, d0, d1, d2
-    elif move==2:
-        dice[1], dice[3], dice[4], dice[5] = d5, d4, d1, d3
-    elif move==3:
-        dice[0], dice[1], dice[2], dice[3] = d1, d2, d3, d0
+    mapping = [
+        [0,4,2,5,3,1],
+        [3,0,1,2,4,5],
+        [0,5,2,4,1,3],
+        [1,2,3,0,4,5]
+    ]
+    dice[:] = [dice[i] for i in mapping[move]]
         
 def switch_opposite_dir(d):
     if d<=1:
