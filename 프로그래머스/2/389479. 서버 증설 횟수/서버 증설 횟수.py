@@ -8,13 +8,11 @@ def solution(players, m, k):
         n = p//m
         f = q[0] if q else 0
         if n>f:
-            tmp=deque()
-            for i in range(k):
-                v = q.popleft() if q else 0
-                tmp.append(v+(n-f))
-            q = tmp
+            q = deque(
+                (q.popleft() if q else 0) + (n-f)
+                for _ in range(k)
+            )
             answer += (n-f)
-        
         if q:
             q.popleft() 
 
