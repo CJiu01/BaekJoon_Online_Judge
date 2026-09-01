@@ -1,57 +1,37 @@
 
-def make_gifts(arr, gifts, name_order):
+def make_gifts(arr, gifts, f):
     
     for gift in gifts:
         a,b = gift.split(' ')
-        arr[name_order[a]][name_order[b]] +=1
+        arr[f[a]][f[b]] +=1
     
     return
 
 def cal_index(n,arr):
     indexed = [0]*n
     for i in range(n):
-        indexed[i] += sum(arr[i])
-        for j in range(n):
-            indexed[i] -= arr[j][i]
-
+        indexed[i] = sum(arr[i]) - sum(k[i] for k in arr)
     return indexed
 
 def cal_received(n, arr, indexed):
     received = [0]*n
-
-    # ([i][j]!=0 or [j][i]!=0) and [i][j]!=[j][i])
     for i in range(n):
-        for j in range(i+1,n):
-            target = -1
-
-            
-            if ((arr[i][j]!=0 or arr[j][i]!=0) and arr[i][j]!=arr[j][i]):
-                # 큰사람이 받기
-                target = i if arr[i][j]>arr[j][i] else j
-
-            else:
+        for j in range(n):
+            if arr[i][j]>arr[j][i]:
+                received[i] += 1
+            elif arr[i][j]==arr[j][i]:
                 if indexed[i]>indexed[j]:
-                    target = i
-                elif indexed[i]<indexed[j]:
-                    target = j
-                
-            if target!=-1:
-                received[target] +=1
+                    received[i] += 1
 
     return received
 
-def solution(friends, gifts):
-    answer = 0
-    
+def solution(friends, gifts):    
     n = len(friends)
     arr = [[0]*n for _ in range(n)]
-    name_order = {}
-    for i in range(len(friends)):
-        name_order[friends[i]] = i
+    f = {v:i for i,v in enumerate(friends)}
         
-    make_gifts(arr, gifts, name_order)
+    make_gifts(arr, gifts, f)
     indexed = cal_index(n,arr)
-    res = cal_received(n,arr,indexed)
-    answer = max(res)
+    answer = cal_received(n,arr,indexed)
     
-    return answer
+    return max(answer)
