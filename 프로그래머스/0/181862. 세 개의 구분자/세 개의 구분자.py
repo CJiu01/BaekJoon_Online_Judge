@@ -1,18 +1,3 @@
 def solution(myStr):
-    answer = []
-    str = ''
-    for s in myStr:
-        if s in ['a','b','c']:
-            if str != '':
-                answer.append(str)
-                str=''
-            continue
-        str+=s
-        
-    
-    if str != '':
-        answer.append(str)
-    elif not answer:
-        answer.append("EMPTY")
-    
-    return answer
+    answer = [x for x in myStr.replace('a',' ').replace('b',' ').replace('c',' ').split() if x]
+    return answer if answer else ['EMPTY']
