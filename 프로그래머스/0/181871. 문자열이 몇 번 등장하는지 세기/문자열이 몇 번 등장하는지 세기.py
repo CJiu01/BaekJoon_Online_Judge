@@ -1,8 +1,7 @@
 def solution(myString, pat):
     answer = 0
-    l = len(pat)
-    for i in range(len(myString)-l+1):
-        if myString[i:i+l] == pat:
+    for i in range(len(myString)):
+        if myString[i:].startswith(pat):
             answer+=1
     
     return answer
