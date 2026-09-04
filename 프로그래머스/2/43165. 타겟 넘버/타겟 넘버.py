@@ -1,19 +1,17 @@
-from collections import deque
-from collections import Counter
-
-def bfs(numbers):
-    queue = deque([-1*numbers[0], numbers[0]])
+answer = 0
+def dfs(idx, numbers, target, value):
+    global answer
+    N = len(numbers)
+    if (idx==N and value == target):
+        answer+=1
+        return
+    if idx==N:
+        return
     
-    for k in range(1,len(numbers)):
-        tmp = []
-        for i in queue:
-            tmp.extend([i-numbers[k], i+numbers[k]])
-        queue = tmp
-            
-    return queue
+    dfs(idx+1, numbers, target, value-numbers[idx])
+    dfs(idx+1, numbers, target, value+numbers[idx])
 
 def solution(numbers, target):
-    
-    q = bfs(numbers)
-    answer = Counter(q)[target]
+    global answer
+    dfs(0, numbers, target, 0)
     return answer
