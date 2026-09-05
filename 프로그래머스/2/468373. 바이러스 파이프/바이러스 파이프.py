@@ -2,24 +2,15 @@ from itertools import product
 from collections import deque
 
 def bfs(start, visited, pipe, graph):
-    
-    
     visited[start] = True
     
     while pipe:
         kind = pipe.pop()
-        q = deque([])
-
-        for a,b in enumerate(visited):
-            if not b:
-                continue
-            q.append(a)
+        q = deque(i for i,v in enumerate(visited) if v)
             
         while q:
             v = q.popleft()
-            
-            for i in graph[v]:
-                e,k = i[0],i[1]
+            for e,k in graph[v]:
                 if not visited[e] and k==kind:
                     q.append(e)
                     visited[e] = True
@@ -28,9 +19,9 @@ def bfs(start, visited, pipe, graph):
 def solution(n, infection, edges, k):
     answer = 0
     graph = [[] for _ in range(n+1)]
-    for e in edges:
-        graph[e[0]].append([e[1],e[2]])
-        graph[e[1]].append([e[0],e[2]])  
+    for a,b,c in edges:
+        graph[a].append([b,c])
+        graph[b].append([a,c])  
     
     for i in (list(product([1,2,3], repeat=k))):
         visited = [False]*(n+1)
