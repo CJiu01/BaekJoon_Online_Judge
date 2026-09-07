@@ -1,14 +1,12 @@
 def solution(elements):
-    
-    answer = set()
     n = len(elements)
-    prev = [0]*n
+    res = set()
     
     for i in range(n):
-        curr = []
-        for j in range(n):
-            v = prev[j]+elements[(i+j)%n]
-            curr.append(v)
-            answer.add(v)
-        prev = curr
-    return len(answer)
+        ssum = elements[i]
+        res.add(ssum)
+        
+        for j in range(i+1, i+n):
+            ssum += elements[j%n]
+            res.add(ssum)
+    return len(res)
