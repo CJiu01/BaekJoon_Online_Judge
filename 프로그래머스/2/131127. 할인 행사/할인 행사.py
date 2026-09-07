@@ -3,16 +3,12 @@ from collections import Counter
 def solution(want, number, discount):
     answer = 0
     
-    d = []
+    d = {}
     for (a,b) in zip(want, number):
-        d.extend([a]*b)
-    d = Counter(d)
-   
+        d[a] = b
+
     for i in range(len(discount)-9):
-        window = discount[i:i+10]
-        c = Counter(window)
-        tmp = d-c
-        if len(d-c)==0:
-            answer+=1
+        if d==Counter(discount[i:i+10]):
+            answer+=1            
             
     return answer
