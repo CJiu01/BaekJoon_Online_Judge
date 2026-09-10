@@ -9,8 +9,7 @@ def solution(diffs, times, limit):
         user = 0
         for i in range(len(diffs)):
             if lv-diffs[i]<0:
-                prev = times[i-1] if i>0 else 0
-                user += (diffs[i]-lv)*(prev+times[i])
+                user += (diffs[i]-lv)*(times[i-1] +times[i])
             user += times[i]
         if user<= limit:
             answer = lv
