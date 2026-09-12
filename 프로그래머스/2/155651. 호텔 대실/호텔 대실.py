@@ -1,31 +1,13 @@
-def to_seconds(times):
-    res = []
-    for t in range(len(times)):
-        m,s = map(int, times[t].split(':'))
-        if t==1: s+=10
-        res.append(m*60+s)
-    return res
-
 def solution(book_time):
-    answer = 0
-    
-    for i in range(len(book_time)):
-        book_time[i] = to_seconds(book_time[i])
+    time_table = [0 for _ in range(60*24)]
+    for start, end in book_time:
+        start_minutes = int(start[:2])*60 + int(start[3:])
+        end_minutes = int(end[:2])*60 + int(end[3:])+10
         
-    book_time.sort()
-    room = []
-    room.append(book_time[0][1])
-    
-    for i in range(1,len(book_time)):
-        idx = 1000
-        room.sort()
-        for j in range(len(room)):
-            if book_time[i][0] >= room[j]:
-                idx = j
-                break
-        if idx == 1000:
-            room.append(book_time[i][1])
-        else: 
-            room[idx] = book_time[i][1]
+        if end_minutes> 60*24-1:
+            end_minutes = 60*24-1
         
-    return len(room)
+        for i in range(start_minutes, end_minutes):
+            time_table[i] += 1
+            
+    return max(time_table)
