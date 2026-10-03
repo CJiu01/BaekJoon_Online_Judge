@@ -1,22 +1,15 @@
 def solution(sequence, k):
+    left, cur = 0,0
     answer = []
-    
-    cur = 0
-    i, j = 0,0
+    for right, x in enumerate(sequence):
+        cur += x
         
-    while j<=len(sequence):
-        if cur==k:
-            answer.append([j-i,i,j-1])
-            cur -= sequence[i]
-            i+=1
-        elif cur>k:
-            cur -= sequence[i]
-            i+=1
-        else:
-            if j==len(sequence):
-                break
-            cur += sequence[j]
-            j+=1
-    
+        while cur>k:
+            cur -= sequence[left]
+            left += 1
+        
+        if cur == k:
+            answer.append([right-left, left, right])
+            
     answer.sort()
     return [answer[0][1], answer[0][2]]
