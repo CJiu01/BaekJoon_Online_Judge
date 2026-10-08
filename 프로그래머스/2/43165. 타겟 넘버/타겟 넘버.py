@@ -1,17 +1,16 @@
-answer = 0
-def dfs(idx, numbers, target, value):
-    global answer
-    N = len(numbers)
-    if (idx==N and value == target):
-        answer+=1
-        return
-    if idx==N:
-        return
-    
-    dfs(idx+1, numbers, target, value-numbers[idx])
-    dfs(idx+1, numbers, target, value+numbers[idx])
-
 def solution(numbers, target):
-    global answer
-    dfs(0, numbers, target, 0)
+    answer = 0
+    
+    def dfs(numbers, idx, res):
+        nonlocal answer
+    
+        if idx==len(numbers):
+            if res==target:
+                answer+=1
+            return
+        
+        dfs(numbers, idx+1, res+numbers[idx])
+        dfs(numbers, idx+1, res-numbers[idx])
+    
+    dfs(numbers, 0, 0)
     return answer
