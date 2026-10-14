@@ -1,10 +1,10 @@
 def solution(data, col, row_begin, row_end):
     answer = 0
+    
     data.sort(key=lambda x:(x[col-1],-x[0]))
-
+    
     for row in range(row_begin-1, row_end):
-        mod = 0
-        for i in data[row]:
-            mod += (i%(row+1))
+        mod = sum(i%(row+1) for i in data[row])
         answer ^= mod
+    
     return answer
