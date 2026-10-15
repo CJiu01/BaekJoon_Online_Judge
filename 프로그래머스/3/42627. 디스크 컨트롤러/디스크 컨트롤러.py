@@ -9,9 +9,7 @@ def solution(jobs):
     h = []
     while i<n or h:
         # 해당시간까지 온 작업 heap에 넣기
-        while i<n:
-            if jobs[i][0]>time:
-                break
+        while i<n and jobs[i][0]<=time:
             hq.heappush(h, [jobs[i][1], jobs[i][0], i])
             i += 1
         
