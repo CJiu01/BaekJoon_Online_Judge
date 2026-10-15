@@ -1,6 +1,6 @@
 def dfs(v, visited, graph):
     visited[v] = True
-    return sum([1]+[dfs(u, visited, graph) for u in graph[v] if not visited[u]])
+    return sum([1] + [dfs(u, visited, graph) for u in graph[v] if not visited[u]])
 
 def solution(n, wires):
     graph = [[] for _ in range(n+1)]
@@ -15,7 +15,7 @@ def solution(n, wires):
         visited[v1] = True
         visited[v2] = True
         
-        tmp = abs(dfs(v1, visited, graph) - dfs(v2, visited, graph))
-        answer = min(answer,tmp)
+        cnt = dfs(v1, visited, graph)
+        answer = min(answer, abs(cnt-(n-cnt)))
     
     return answer
