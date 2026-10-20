@@ -1,30 +1,28 @@
-def rotate(query):
-    global board
-    dir = ((0,1),(1,0),(0,-1),(-1,0))
-    start_x, start_y, end_x, end_y = [x-1 for x in query]
-    rotated = [b.copy() for b in board]
-    res = []
-   
-    x,y = start_x, start_y
-    for i in range(4):
-        
-        for j in range(101):
-            dx, dy = x+dir[i][0], y+dir[i][1]
-            if start_x<=dx<=end_x and start_y<=dy<=end_y:
-                rotated[dx][dy] = board[x][y]
-                res.append(board[x][y])
-                x,y = dx,dy
-            else:
-                break
-    board = [r.copy() for r in rotated]
-    return min(res)
-
 def solution(rows, columns, queries):
-    global board
     answer = []
     board = [[i*columns+j for j in range(1,columns+1)] for i in range(rows) ]
     
-    for query in queries:
-        answer.append(rotate(query))
+    for a,b,c,d in queries:
+        stack = []
+        r1, c1, r2, c2 = a-1, b-1, c-1, d-1
+        
+        for i in range(c1, c2+1):
+            stack.append(board[r1][i])
+            if len(stack)==1:
+                continue
+            board[r1][i] = stack[-2]
 
+        for j in range(r1+1, r2+1):
+            stack.append(board[j][c2])
+            board[j][c2] = stack[-2]
+
+        for k in range(c2-1, c1-1, -1):
+            stack.append(board[r2][k])
+            board[r2][k] = stack[-2]
+  
+        for l in range(r2-1, r1-1, -1):
+            stack.append(board[l][c1])
+            board[l][c1] = stack[-2]
+
+        answer.append(min(stack))
     return answer 
