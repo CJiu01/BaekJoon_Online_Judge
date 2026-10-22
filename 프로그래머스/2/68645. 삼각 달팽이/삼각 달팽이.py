@@ -1,30 +1,18 @@
+from itertools import chain
+
 def solution(n):
-    answer = []
-    
-    dir = [(1,0),(0,1),(-1,-1)]
-    l = [[-1]*n for _ in range(n)]
-    x,y,d = 0,0,0
-    v = 1
-    
-    l[0][0] = v
-    v+=1
-    for i in range(n,0,-1):
-        k = d%3
-        
-        while True:
-            dx = x+dir[k][0]
-            dy = y+dir[k][1]
-            
-            if (not (0<=dx<n and 0<=dy<n)) or (l[dx][dy] != -1):
-                break
-            l[dx][dy] = v
-            v+=1
-            x,y = dx,dy
-        d+=1
-    
-    for a in l:
-        for b in a:
-            if b==-1:
-                continue
-            answer.append(b)
-    return answer
+    row, col, cnt = -1,0,1
+    board = [[None]*i for i in range(1,n+1)]
+
+    for i in range(n):
+        for j in range(n-i):
+            if i % 3 == 0:
+                row += 1
+            elif i % 3 == 1:
+                col += 1
+            else:
+                row -= 1
+                col -= 1
+            board[row][col] = cnt
+            cnt += 1
+    return list(chain(*board))
