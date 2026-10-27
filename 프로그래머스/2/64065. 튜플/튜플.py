@@ -1,15 +1,15 @@
 def solution(s):
     answer = []
     
-    a = s.replace('{{','').replace('}}','').split('},{')
-    b = []
-    for i in a:
-        b.append(list(map(int, i.split(','))))
-        
-    b.sort(key= lambda x:len(x))
-    
-    for t in b:
-        v = list(set(t) - set(answer))
-        answer.extend(v)
-    
+    s1 = s.lstrip('{{').rstrip('}}').split('},{')
+    new_s = []
+    for i in s1:
+        new_s.append(list(map(int, i.split(','))))
+    new_s.sort(key = len)
+
+    for i in new_s:
+        for j in range(len(i)):
+            if i[j] not in answer:
+                answer.append(i[j])
+
     return answer
