@@ -2,26 +2,27 @@ def solution(info, query):
     answer = []
     
     db = {}
+    for a in ['cpp', 'java', 'python', '-']:
+        for b in ['backend', 'frontend', '-']:
+            for c in ['junior', 'senior', '-']:
+                for d in ['chicken', 'pizza', '-']:
+                    db.setdefault((a,b,c,d),[])
+    
     for row in info:
         a,b,c,d,e = row.split()
         for i in [a,'-']:
             for j in [b,'-']:
                 for k in [c,'-']:
                     for l in [d,'-']:
-                        key = ' '.join([i,j,k,l])
-                        db.setdefault(key, []).append(int(e))
+                        db[(i, j, k, l)].append(int(e))
                         
     for row in db.values():
         row.sort()
         
     for q in query:
         row = q.split()
-        key = ' '.join(word for word in row[:-1] if word!= 'and')
+        pool = db[(row[0],row[2],row[4],row[6])]
         v = int(row[-1])
-        pool = db.get(key, -1)
-        if pool == -1:
-            answer.append(0)
-            continue
         
         l, r, mid = 0, len(pool), 0
         while l<r:
