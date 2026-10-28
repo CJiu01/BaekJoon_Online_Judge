@@ -1,32 +1,24 @@
 def solution(s):
     n = len(s)
     answer = n
+    
 
     for u in range(1, n//2+1):
-        sp = []
+        words = []
         for i in range(0, n, u):
-            sp.append(s[i:i+u])
+            words.append(s[i:i+u])
 
         cnt = 1
         res = ''
-        prev = sp[0]
-        for i in range(1,len(sp)):
-            cur = sp[i]
-            
-            if prev == cur:
+        for a,b in zip(words, words[1:]+['']):
+            if a == b:
                 cnt += 1
             elif cnt > 1:
-                res += str(cnt)+prev
+                res += str(cnt)+a
                 cnt = 1
             else:
-                res += prev
-                
-            prev = cur
-        if cnt > 1:
-            res += str(cnt)+cur
-        else:
-            res += cur
-        
+                res += a
+
         answer = min(answer, len(res))
     
     return answer
