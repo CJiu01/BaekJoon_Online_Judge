@@ -10,40 +10,37 @@ def find(l, target):
                 res.append((i,j))
                 
     return res
-
 def solution(key, lock):
-    n = len(lock)
-    m = len(key)
+    m, n = len(key), len(lock)
     keyed = find(key, 1)
-    locked = find(lock ,0)
+    locked = find(lock, 0)
     
     for _ in range(4):
-        i=-m+1
-        
+        i = -m+1
         while i<n:
             j = -m+1
             while j<n:
                 tkey = keyed[:]
-                for k in range(len(tkey)):
-                    tkey[k] = (tkey[k][0]+i, tkey[k][1]+j)
 
-                # N*N영역 내의 key만 필터
+                for k in range(len(tkey)):
+                    tkey[k] = tkey[k][0]+i, tkey[k][1]+j
+                    
                 nkey = []
                 flag = True
                 for k in tkey:
                     if 0<=k[0]<n and 0<=k[1]<n:
-                        if lock[k[0]][k[1]]!=1:
+                        if lock[k[0]][k[1]] == 0:
                             nkey.append(k)
                         else:
                             flag = False
                             break
-                        
-                if flag and nkey==locked:
+                if flag and locked==nkey:
                     return True
                 j+=1
-            i+=1 
-
+                
+            i+=1
+        
         key = rotated(key)
         keyed = find(key, 1)
-    
+        
     return False
